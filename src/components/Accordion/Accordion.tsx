@@ -1,12 +1,16 @@
 import AccordionTitle from "../AccordionTitle";
 import AccordionBody from "../AccordionBody";
 
-const Accordion = () => {
+type AccordionType = {
+    collapsed: boolean
+}
+const Accordion = ({collapsed} : AccordionType) => {
 
     return (
         <>
             <AccordionTitle title={'hello react'} />
-            <AccordionBody />
+            {/*<AccordionBody />*/}
+            {collapsed ? null : <AccordionBody />}
         </>
     )
 }
