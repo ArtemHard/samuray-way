@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
+import Star from "./components/Star";
 
 function App() {
   return (
     <div className="App">
-     Hello, samurai! Let's go!123
+     <Star />
+     <Star />
+     <Star />
+     <Star />
+     <Star />
     </div>
   );
 }
