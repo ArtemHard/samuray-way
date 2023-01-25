@@ -1,16 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
+import { PostType } from "../../../App";
+
 import style from "./MyPosts.module.css";
 import Post from "./Posts/Post";
+type MyPostsPropsType = {
+  posts: Array<PostType>;
+};
 
-const MyPosts = () => {
-  const message = "Lorem ipsum dolor sit amet consectetur";
-  const likes = 12;
-
-  const postsData = [
-    { id: "1", message: "innax from here", likesCount: 12 },
-    { id: "2", message: "Lorem ipsum dolor sit", likesCount: 10 },
-  ];
-
+const MyPosts: FC<MyPostsPropsType> = (props) => {
+  const postsElements = props.posts.map((p) => (
+    <Post message={p.message} likes={p.likesCount} />
+  ));
   return (
     <div className={style.postsBlock}>
       <h3>My posts</h3>
@@ -22,10 +22,7 @@ const MyPosts = () => {
           <button>Add post</button>
         </div>
       </div>
-      <div className={style.posts}>
-        <Post message={message} likes={likes} />
-        <Post message='innax from here' likes={100} />
-      </div>
+      <div className={style.posts}>{postsElements}</div>
     </div>
   );
 };
