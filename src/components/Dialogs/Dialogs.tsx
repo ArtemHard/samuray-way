@@ -1,11 +1,11 @@
 import style from "./Dialogs.module.css";
 import { FC } from "react";
 import DialogItem from "./DialogItem/DialogItem";
-import Message from "./Message/Message";
-import { dialogsDataType, messageDataType } from "../../App";
+import { Dialog, Message } from "../../redux/state";
+import MessageComponent from "./Message/Message"; // переименовал компонент т.к. конфликт
 type DialogsPropsType = {
-  dialogsData: dialogsDataType;
-  messagesData: messageDataType;
+  dialogsData: Array<Dialog>;
+  messagesData: Array<Message>;
 };
 
 const Dialogs: FC<DialogsPropsType> = ({ dialogsData, messagesData }) => {
@@ -14,7 +14,7 @@ const Dialogs: FC<DialogsPropsType> = ({ dialogsData, messagesData }) => {
   ));
 
   const messagesElements = messagesData.map((m) => (
-    <Message className={style.dialog} key={m.id} message={m.message} />
+    <MessageComponent className={style.dialog} key={m.id} message={m.message} />
   ));
 
   return (

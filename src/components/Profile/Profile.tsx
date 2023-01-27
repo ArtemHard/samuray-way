@@ -1,4 +1,4 @@
-import { PostType } from "../../App";
+import { PostType } from "../../redux/state";
 import MyPosts from "./MyPosts/MyPosts";
 import style from "./Profile.module.css";
 import { ProfileInfo } from "./ProfileInfo/ProfileInfo";

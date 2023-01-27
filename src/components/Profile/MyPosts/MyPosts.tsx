@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { PostType } from "../../../App";
+import { PostType } from "../../../redux/state";
 
 import style from "./MyPosts.module.css";
 import Post from "./Posts/Post";
