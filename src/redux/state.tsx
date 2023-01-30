@@ -1,3 +1,5 @@
+import { rerenderEntireTree } from "../render";
+
 export type PostType = {
   id: string;
   message: string;
@@ -21,11 +23,11 @@ export type StateType = {
   messagesPage: {
     dialogs: Array<Dialog>;
     messages: Array<Message>;
-    sidebar: {};
   };
+  sidebar: {};
 };
 
-let state = {
+let state: StateType = {
   profilePage: {
     posts: [
       { id: "1", message: "innax from here", likesCount: 12 },
@@ -54,6 +56,16 @@ let state = {
     ],
   },
   sidebar: {},
+};
+
+export const addPost = (postMessage: string) => {
+  let newPost = {
+    id: Date.now().toString(),
+    message: postMessage,
+    likesCount: 0,
+  };
+  state.profilePage.posts.push(newPost);
+  rerenderEntireTree(state);
 };
 
 export default state;

@@ -5,21 +5,30 @@ import style from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 type MyPostsPropsType = {
   posts: Array<PostType>;
+  addPost: (postMessage: string) => void;
 };
 
 const MyPosts: FC<MyPostsPropsType> = (props) => {
   const postsElements = props.posts.map((p) => (
-    <Post message={p.message} likes={p.likesCount} />
+    <Post message={p.message} likes={p.likesCount} key={p.id} />
   ));
+
+  let newPostElement = React.createRef<HTMLTextAreaElement>();
+
+  const onClickHandler = () => {
+    let text = newPostElement.current?.value;
+    if (text !== undefined) props.addPost(text);
+    newPostElement.current!.value = "";
+  };
   return (
     <div className={style.postsBlock}>
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea></textarea>
+          <textarea ref={newPostElement}></textarea>
         </div>
         <div>
-          <button>Add post</button>
+          <button onClick={onClickHandler}>Add post</button>
         </div>
       </div>
       <div className={style.posts}>{postsElements}</div>

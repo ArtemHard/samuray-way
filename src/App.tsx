@@ -5,9 +5,13 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { Profile } from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
-import state from "./redux/state";
+import { addPost, StateType } from "./redux/state";
 
-function App() {
+type AppPropsType = {
+  state: StateType;
+};
+
+function App({ state }: AppPropsType) {
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -29,7 +33,9 @@ function App() {
           <Route
             exact
             path='/profile'
-            render={() => <Profile posts={state.profilePage.posts} />}
+            render={() => (
+              <Profile posts={state.profilePage.posts} addPost={addPost} />
+            )}
           />
         </div>
       </div>
