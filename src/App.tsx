@@ -7,10 +7,10 @@ import Dialogs from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
 import { addPost, StateType } from "./redux/state";
 
+
 type AppPropsType = {
   state: StateType;
 };
-
 function App({ state }: AppPropsType) {
   return (
     <BrowserRouter>
@@ -34,7 +34,7 @@ function App({ state }: AppPropsType) {
             exact
             path='/profile'
             render={() => (
-              <Profile posts={state.profilePage.posts} addPost={addPost} />
+              <Profile profilePage={state.profilePage} newPostText={state.profilePage.newPostText} addPost={addPost} />
             )}
           />
         </div>
