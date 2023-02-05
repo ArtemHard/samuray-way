@@ -10,7 +10,7 @@ type MyPostsPropsType = {
   updateNewPostText: (newText: string) => void
 };
 
-const MyPosts: FC<MyPostsPropsType> = (props, {updateNewPostText}) => {
+const MyPosts: FC<MyPostsPropsType> = (props) => {
   const postsElements = props.posts.map((p) => (
     <Post message={p.message} likes={p.likesCount} key={p.id} />
   ));
@@ -20,13 +20,13 @@ const MyPosts: FC<MyPostsPropsType> = (props, {updateNewPostText}) => {
   const onClickHandler = () => {
     let text = newPostElement.current?.value
     props.addPost()
-    if(text) updateNewPostText(' ')
+    if(text) props.updateNewPostText(' ')
    
   };
 
   const onPostChange = () => {
     let text = newPostElement.current?.value
-    if(text) updateNewPostText(text)
+    if(text) props.updateNewPostText(text)
   }
   
   return (

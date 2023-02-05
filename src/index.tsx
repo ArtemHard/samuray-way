@@ -7,5 +7,7 @@ import store, {StoreType } from "./redux/state";
  export const renderEntireTree = (store: StoreType) => {
     ReactDOM.render(<App store={store} />, document.getElementById("root"));
   };
-store.subscriber(()=> renderEntireTree)
+
   
+store.subscriber(() => renderEntireTree(store))
+renderEntireTree(store)
