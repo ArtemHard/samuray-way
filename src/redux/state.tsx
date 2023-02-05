@@ -37,6 +37,7 @@ export type StoreType = {
   addPost: () =>  void 
   _onChange: () => void
   subscriber: (observer: () => void) => void
+  getState: () => StateType
 }
 const store: StoreType = {
   _state: {
@@ -72,7 +73,7 @@ const store: StoreType = {
   },
   updateNewPostText (newText: string)  {
     this._state.profilePage.newPostText = newText
-    this._onChange
+    this._onChange()
   },
   addPost  ()  {
     let newPost = {
@@ -81,20 +82,17 @@ const store: StoreType = {
       likesCount: 0,
     };
     this._state.profilePage.posts.push(newPost);
-    this._onChange
+    this._onChange()
   },
   _onChange() {
     console.log('state changed')
   },
   subscriber (observer)  {
     this._onChange = observer
+},
+getState() {
+  return this._state
+}
 }
 
-//35-40 выпуск 11:43
-
-
-
-
-
-
-export default state;
+export default store

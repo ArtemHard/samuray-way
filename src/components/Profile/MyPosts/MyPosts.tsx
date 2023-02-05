@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { PostType, updateNewPostText } from "../../../redux/state";
+import { PostType } from "../../../redux/state";
 
 import style from "./MyPosts.module.css";
 import Post from "./Posts/Post";
@@ -7,9 +7,10 @@ type MyPostsPropsType = {
   posts: Array<PostType>;
   addPost: () => void;
   newPostText: string
+  updateNewPostText: (newText: string) => void
 };
 
-const MyPosts: FC<MyPostsPropsType> = (props) => {
+const MyPosts: FC<MyPostsPropsType> = (props, {updateNewPostText}) => {
   const postsElements = props.posts.map((p) => (
     <Post message={p.message} likes={p.likesCount} key={p.id} />
   ));
@@ -19,7 +20,7 @@ const MyPosts: FC<MyPostsPropsType> = (props) => {
   const onClickHandler = () => {
     let text = newPostElement.current?.value
     props.addPost()
-    if(text) updateNewPostText('')
+    if(text) updateNewPostText(' ')
    
   };
 
