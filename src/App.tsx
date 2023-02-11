@@ -5,12 +5,13 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { Profile } from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
-import { StoreType } from "./redux/store";
+import { ActionTypes, StoreType } from "./redux/store";
 
 type AppPropsType = {
   store: StoreType;
+  dispatch: (action: ActionTypes) => void;
 };
-const App: FC<AppPropsType> = ({ store }) => {
+const App: FC<AppPropsType> = ({ store, dispatch }) => {
   const state = store.getState();
   return (
     <BrowserRouter>
@@ -37,8 +38,7 @@ const App: FC<AppPropsType> = ({ store }) => {
               <Profile
                 profilePage={state.profilePage}
                 newPostText={state.profilePage.newPostText}
-                addPost={store.addPost.bind(store)}
-                updateNewPostText={store.updateNewPostText.bind(store)}
+                dispatch={dispatch}
               />
             )}
           />

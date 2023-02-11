@@ -35,7 +35,7 @@ export type StoreType = {
   updateNewPostText: (newText: string) => void;
   addPost: () => void;
   _onChange: () => void;
-  subscriber: (observer: () => void) => void;
+  subscriber: (observer: () => void) => void; // не понимаю как работает механизм подписчика
   getState: () => StateType;
   dispatch: (action: ActionTypes) => void;
 };
@@ -120,7 +120,8 @@ const store: StoreType = {
       };
       this._state.profilePage.posts.push(newPost);
       this._state.profilePage.newPostText = "";
-      // this.subscriber(this._state);
+      this._onChange();
+      // this.subscriber(() => this._state);
     } else if (action.type === "UPDATE-NEW-POST-TEXT") {
       this._state.profilePage.newPostText = action.newPostText;
       this._onChange();
