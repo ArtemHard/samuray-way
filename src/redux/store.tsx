@@ -1,7 +1,7 @@
 let rerenderEntireTree = () => {
   console.log("state changed");
 };
-
+const SEND_MESSAGE = "SEND-MESSAGE";
 export type PostType = {
   id: string;
   message: string;
@@ -26,6 +26,7 @@ export type StateType = {
   messagesPage: {
     dialogs: Array<Dialog>;
     messages: Array<Message>;
+    newMessageBody: string;
   };
   sidebar: {};
 };
@@ -42,7 +43,8 @@ export type StoreType = {
 
 export type ActionTypes =
   | ReturnType<typeof addPostAC>
-  | ReturnType<typeof UpdateNewPostText>;
+  | ReturnType<typeof UpdateNewPostText>
+  | ReturnType<typeof SendMessageAC>;
 
 export const addPostAC = (postText: string) => {
   return {
@@ -54,6 +56,12 @@ export const UpdateNewPostText = (newPostText: string) => {
   return {
     type: "UPDATE-NEW-POST-TEXT",
     newPostText: newPostText,
+  } as const;
+};
+export const SendMessageAC = (body: string) => {
+  return {
+    type: SEND_MESSAGE,
+    newMessageBody: body,
   } as const;
 };
 
@@ -86,6 +94,7 @@ const store: StoreType = {
         { id: "6", message: "Shrek" },
         { id: "7", message: "Jordan" },
       ],
+      newMessageBody: "",
     },
     sidebar: {},
   },
@@ -124,6 +133,11 @@ const store: StoreType = {
       // this.subscriber(() => this._state);
     } else if (action.type === "UPDATE-NEW-POST-TEXT") {
       this._state.profilePage.newPostText = action.newPostText;
+      this._onChange();
+    } else if (action.type === SEND_MESSAGE) {
+      let body = this._state.messagesPage.newMessageBody;
+      this._state.messagesPage.newMessageBody = "1";
+      this._state.messagesPage.messages.push({ id: "45654", message: "body" });
       this._onChange();
     }
   },

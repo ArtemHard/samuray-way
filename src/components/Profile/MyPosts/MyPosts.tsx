@@ -1,5 +1,10 @@
 import React, { FC } from "react";
-import { ActionTypes, PostType } from "../../../redux/store";
+import {
+  ActionTypes,
+  addPostAC,
+  PostType,
+  UpdateNewPostText,
+} from "../../../redux/store";
 
 import style from "./MyPosts.module.css";
 import Post from "./Posts/Post";
@@ -17,18 +22,12 @@ const MyPosts: FC<MyPostsPropsType> = (props) => {
   let newPostElement = React.createRef<HTMLTextAreaElement>();
 
   const onClickHandler = () => {
-    let text = newPostElement.current?.value;
-    props.dispatch({ type: "ADD-POST", postText: props.newPostText });
-    // props.addPost();
-    // if (text) props.updateNewPostText(" ");
+    props.dispatch(addPostAC(props.newPostText));
   };
 
   const onPostChange = () => {
     let text = newPostElement.current?.value;
-    // props.dispatch()
-    // if (text) props.updateNewPostText(text);
-    if (text)
-      props.dispatch({ type: "UPDATE-NEW-POST-TEXT", newPostText: text });
+    if (text) props.dispatch(UpdateNewPostText(text));
   };
 
   return (

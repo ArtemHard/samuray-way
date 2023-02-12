@@ -28,6 +28,8 @@ const App: FC<AppPropsType> = ({ store, dispatch }) => {
               <Dialogs
                 dialogsData={state.messagesPage.dialogs}
                 messagesData={state.messagesPage.messages}
+                newMessageBody={state.messagesPage.newMessageBody}
+                dispatch={dispatch}
               />
             )}
           />
