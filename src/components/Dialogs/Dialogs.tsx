@@ -1,7 +1,13 @@
 import style from "./Dialogs.module.css";
 import { FC } from "react";
 import DialogItem from "./DialogItem/DialogItem";
-import { ActionTypes, Dialog, Message, SendMessageAC } from "../../redux/store";
+import {
+  ActionTypes,
+  Dialog,
+  Message,
+  SendMessageAC,
+  updateNewMessageBodyCreator,
+} from "../../redux/store";
 import MessageComponent from "./Message/Message"; // переименовал компонент т.к. конфликт
 
 type DialogsPropsType = {
@@ -26,7 +32,12 @@ const Dialogs: FC<DialogsPropsType> = ({
   ));
 
   const onSendMessageClick = () => {
-    dispatch(SendMessageAC("123"));
+    dispatch(SendMessageAC());
+  };
+
+  const onNewMessageClick = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const body = e.target.value;
+    dispatch(updateNewMessageBodyCreator(body));
   };
 
   return (
@@ -38,6 +49,7 @@ const Dialogs: FC<DialogsPropsType> = ({
           <div>
             <textarea
               value={newMessageBody}
+              onChange={onNewMessageClick}
               placeholder='Enter your message'
             ></textarea>
           </div>

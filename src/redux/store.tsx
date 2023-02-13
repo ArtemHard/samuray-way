@@ -2,6 +2,7 @@ let rerenderEntireTree = () => {
   console.log("state changed");
 };
 const SEND_MESSAGE = "SEND-MESSAGE";
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 export type PostType = {
   id: string;
   message: string;
@@ -44,7 +45,8 @@ export type StoreType = {
 export type ActionTypes =
   | ReturnType<typeof addPostAC>
   | ReturnType<typeof UpdateNewPostText>
-  | ReturnType<typeof SendMessageAC>;
+  | ReturnType<typeof SendMessageAC>
+  | ReturnType<typeof updateNewMessageBodyCreator>;
 
 export const addPostAC = (postText: string) => {
   return {
@@ -58,9 +60,14 @@ export const UpdateNewPostText = (newPostText: string) => {
     newPostText: newPostText,
   } as const;
 };
-export const SendMessageAC = (body: string) => {
+export const SendMessageAC = () => {
   return {
     type: SEND_MESSAGE,
+  } as const;
+};
+export const updateNewMessageBodyCreator = (body: string) => {
+  return {
+    type: UPDATE_NEW_MESSAGE_BODY,
     newMessageBody: body,
   } as const;
 };
@@ -136,8 +143,11 @@ const store: StoreType = {
       this._onChange();
     } else if (action.type === SEND_MESSAGE) {
       let body = this._state.messagesPage.newMessageBody;
-      this._state.messagesPage.newMessageBody = "1";
-      this._state.messagesPage.messages.push({ id: "45654", message: "body" });
+      this._state.messagesPage.messages.push({ id: "45654", message: body });
+      this._state.messagesPage.newMessageBody = " ";
+      this._onChange();
+    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+      this._state.messagesPage.newMessageBody = action.newMessageBody;
       this._onChange();
     }
   },
