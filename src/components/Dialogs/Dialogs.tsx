@@ -1,14 +1,12 @@
 import style from "./Dialogs.module.css";
 import { FC } from "react";
 import DialogItem from "./DialogItem/DialogItem";
+import { ActionTypes, Dialog, Message } from "../../redux/store";
+import MessageComponent from "./Message/Message"; // переименовал компонент т.к. конфликт
 import {
-  ActionTypes,
-  Dialog,
-  Message,
   SendMessageAC,
   updateNewMessageBodyCreator,
-} from "../../redux/store";
-import MessageComponent from "./Message/Message"; // переименовал компонент т.к. конфликт
+} from "../../redux/messagesReducer";
 
 type DialogsPropsType = {
   dialogsData: Array<Dialog>;

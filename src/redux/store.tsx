@@ -1,9 +1,11 @@
-import { messagesReducer } from "./messagesReducer";
-import { profileReducer } from "./profileReducer";
+import {
+  messagesReducer,
+  SendMessageAC,
+  updateNewMessageBodyCreator,
+} from "./messagesReducer";
+import { addPostAC, profileReducer, UpdateNewPostText } from "./profileReducer";
 import { sidebarReducer } from "./sidebarReducer";
 
-const SEND_MESSAGE = "SEND-MESSAGE";
-const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 export type PostType = {
   id: string;
   message: string;
@@ -48,30 +50,6 @@ export type ActionTypes =
   | ReturnType<typeof UpdateNewPostText>
   | ReturnType<typeof SendMessageAC>
   | ReturnType<typeof updateNewMessageBodyCreator>;
-
-export const addPostAC = (postText: string) => {
-  return {
-    type: "ADD-POST",
-    postText: postText,
-  } as const;
-};
-export const UpdateNewPostText = (newPostText: string) => {
-  return {
-    type: "UPDATE-NEW-POST-TEXT",
-    newPostText: newPostText,
-  } as const;
-};
-export const SendMessageAC = () => {
-  return {
-    type: SEND_MESSAGE,
-  } as const;
-};
-export const updateNewMessageBodyCreator = (body: string) => {
-  return {
-    type: UPDATE_NEW_MESSAGE_BODY,
-    newMessageBody: body,
-  } as const;
-};
 
 const store: StoreType = {
   _state: {

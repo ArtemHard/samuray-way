@@ -1,10 +1,6 @@
 import React, { FC } from "react";
-import {
-  ActionTypes,
-  addPostAC,
-  PostType,
-  UpdateNewPostText,
-} from "../../../redux/store";
+import { addPostAC, UpdateNewPostText } from "../../../redux/profileReducer";
+import { ActionTypes, PostType } from "../../../redux/store";
 
 import style from "./MyPosts.module.css";
 import Post from "./Posts/Post";

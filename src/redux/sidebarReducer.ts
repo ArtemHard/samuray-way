@@ -1,10 +1,10 @@
 import { ActionTypes } from "./store";
 
-type InitialState = {};
-
+type InitialStateType = {};
+const initialState: InitialStateType = {};
 export const sidebarReducer = (
-  state: InitialState,
+  state = initialState,
   action: ActionTypes
-): InitialState => {
+): InitialStateType => {
   return state;
 };

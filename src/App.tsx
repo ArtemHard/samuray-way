@@ -5,10 +5,11 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { Profile } from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
-import { ActionTypes, StoreType } from "./redux/store";
+import { ActionTypes } from "./redux/store";
+import { StoreReduxType } from "./redux/reduxStore";
 
 type AppPropsType = {
-  store: StoreType;
+  store: StoreReduxType;
   dispatch: (action: ActionTypes) => void;
 };
 const App: FC<AppPropsType> = ({ store, dispatch }) => {
