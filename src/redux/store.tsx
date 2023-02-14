@@ -1,6 +1,7 @@
-let rerenderEntireTree = () => {
-  console.log("state changed");
-};
+import { messagesReducer } from "./messagesReducer";
+import { profileReducer } from "./profileReducer";
+import { sidebarReducer } from "./sidebarReducer";
+
 const SEND_MESSAGE = "SEND-MESSAGE";
 const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 export type PostType = {
@@ -128,28 +129,13 @@ const store: StoreType = {
     return this._state;
   },
   dispatch(action) {
-    if (action.type === "ADD-POST") {
-      const newPost = {
-        id: Date.now().toString(),
-        message: action.postText,
-        likesCount: 0,
-      };
-      this._state.profilePage.posts.push(newPost);
-      this._state.profilePage.newPostText = "";
-      this._onChange();
-      // this.subscriber(() => this._state);
-    } else if (action.type === "UPDATE-NEW-POST-TEXT") {
-      this._state.profilePage.newPostText = action.newPostText;
-      this._onChange();
-    } else if (action.type === SEND_MESSAGE) {
-      let body = this._state.messagesPage.newMessageBody;
-      this._state.messagesPage.messages.push({ id: "45654", message: body });
-      this._state.messagesPage.newMessageBody = " ";
-      this._onChange();
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-      this._state.messagesPage.newMessageBody = action.newMessageBody;
-      this._onChange();
-    }
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.messagesPage = messagesReducer(
+      this._state.messagesPage,
+      action
+    );
+    this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+    this._onChange();
   },
 };
 
