@@ -4,38 +4,37 @@ import DialogItem from "./DialogItem/DialogItem";
 import { ActionTypes, Dialog, Message } from "../../redux/store";
 import MessageComponent from "./Message/Message"; // переименовал компонент т.к. конфликт
 import {
+  initialStateMessageType,
   SendMessageAC,
   updateNewMessageBodyCreator,
 } from "../../redux/messagesReducer";
 
 type DialogsPropsType = {
-  dialogsData: Array<Dialog>;
-  messagesData: Array<Message>;
-  newMessageBody: string;
-  dispatch: (action: ActionTypes) => void;
+  updateNewMessageBody: (body: string) => void;
+  onSendMessage: () => void;
+  messagesPage: initialStateMessageType;
 };
 
 const Dialogs: FC<DialogsPropsType> = ({
-  dialogsData,
-  messagesData,
-  newMessageBody,
-  dispatch,
+  updateNewMessageBody,
+  onSendMessage,
+  messagesPage,
 }) => {
-  const dialogsElements = dialogsData.map((d) => (
+  const dialogsElements = messagesPage.dialogs.map((d) => (
     <DialogItem key={d.id} id={d.id} name={d.name} />
   ));
 
-  const messagesElements = messagesData.map((m) => (
+  const messagesElements = messagesPage.messages.map((m) => (
     <MessageComponent className={style.dialog} key={m.id} message={m.message} />
   ));
 
   const onSendMessageClick = () => {
-    dispatch(SendMessageAC());
+    onSendMessage();
   };
 
   const onNewMessageClick = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const body = e.target.value;
-    dispatch(updateNewMessageBodyCreator(body));
+    updateNewMessageBody(body);
   };
 
   return (
@@ -46,7 +45,7 @@ const Dialogs: FC<DialogsPropsType> = ({
         <div>
           <div>
             <textarea
-              value={newMessageBody}
+              value={messagesPage.newMessageBody}
               onChange={onNewMessageClick}
               placeholder='Enter your message'
             ></textarea>

@@ -5,9 +5,10 @@ import { ActionTypes, PostType } from "../../../redux/store";
 import style from "./MyPosts.module.css";
 import Post from "./Posts/Post";
 type MyPostsPropsType = {
-  posts: Array<PostType>;
+  updateNewPostText: (text: string) => void;
+  addPost: (newPostText: string) => void;
+  posts: PostType[];
   newPostText: string;
-  dispatch: (action: ActionTypes) => void;
 };
 
 const MyPosts: FC<MyPostsPropsType> = (props) => {
@@ -18,12 +19,13 @@ const MyPosts: FC<MyPostsPropsType> = (props) => {
   let newPostElement = React.createRef<HTMLTextAreaElement>();
 
   const onClickHandler = () => {
-    props.dispatch(addPostAC(props.newPostText));
+    props.addPost(props.newPostText);
+    // props.dispatch(addPostAC(props.newPostText));
   };
 
   const onPostChange = () => {
     let text = newPostElement.current?.value;
-    if (text) props.dispatch(UpdateNewPostText(text));
+    if (text) props.updateNewPostText(text);
   };
 
   return (

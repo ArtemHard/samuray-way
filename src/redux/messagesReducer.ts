@@ -3,13 +3,13 @@ import { ActionTypes, Dialog, Message } from "./store";
 export const SEND_MESSAGE = "SEND-MESSAGE";
 export const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
 
-type initialStateType = {
+export type initialStateMessageType = {
   dialogs: Array<Dialog>;
   messages: Array<Message>;
   newMessageBody: string;
 };
 
-const initialState: initialStateType = {
+const initialState: initialStateMessageType = {
   dialogs: [
     { id: "1", name: "Artem" },
     { id: "2", name: "Vasili" },
@@ -33,7 +33,7 @@ const initialState: initialStateType = {
 export const messagesReducer = (
   state = initialState,
   action: ActionTypes
-): initialStateType => {
+): initialStateMessageType => {
   switch (action.type) {
     case SEND_MESSAGE:
       let body = state.newMessageBody;

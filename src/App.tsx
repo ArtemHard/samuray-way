@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import "./App.css";
 import { Header } from "./components/Header/Header";
 import { NavBar } from "./components/NavBar/NavBar";
@@ -6,13 +6,14 @@ import { Profile } from "./components/Profile/Profile";
 import Dialogs from "./components/Dialogs/Dialogs";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ActionTypes } from "./redux/store";
-import { StoreReduxType } from "./redux/reduxStore";
+import { StoreReduxType, StoreType } from "./redux/reduxStore";
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
 type AppPropsType = {
-  store: StoreReduxType;
-  dispatch: (action: ActionTypes) => void;
+  store: StoreType;
+  // dispatch: (action: ActionTypes) => void;
 };
-const App: FC<AppPropsType> = ({ store, dispatch }) => {
+const App: FC<AppPropsType> = ({ store }) => {
   const state = store.getState();
   return (
     <BrowserRouter>
@@ -25,25 +26,12 @@ const App: FC<AppPropsType> = ({ store, dispatch }) => {
           <Route
             exact
             path='/dialogs'
-            render={() => (
-              <Dialogs
-                dialogsData={state.messagesPage.dialogs}
-                messagesData={state.messagesPage.messages}
-                newMessageBody={state.messagesPage.newMessageBody}
-                dispatch={dispatch}
-              />
-            )}
+            render={() => <DialogsContainer store={store} />}
           />
           <Route
             exact
             path='/profile'
-            render={() => (
-              <Profile
-                profilePage={state.profilePage}
-                newPostText={state.profilePage.newPostText}
-                dispatch={dispatch}
-              />
-            )}
+            render={() => <Profile store={store} />}
           />
         </div>
       </div>

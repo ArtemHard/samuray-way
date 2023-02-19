@@ -10,9 +10,10 @@ let reducers = combineReducers({
 });
 
 let store = createStore(reducers);
+export type StoreType = typeof store;
 const getStateStore = () => {
   return store.getState();
 };
-export type StoreReduxType = ReturnType<typeof getStateStore>;
+export type StoreReduxType = ReturnType<typeof store.getState>;
 
 export default store;
