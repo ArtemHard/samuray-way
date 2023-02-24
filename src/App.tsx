@@ -1,16 +1,12 @@
-import { FC } from "react";
 import "./App.css";
 import { Header } from "./components/Header/Header";
 import { NavBar } from "./components/NavBar/NavBar";
 import { Profile } from "./components/Profile/Profile";
 import { BrowserRouter, Route } from "react-router-dom";
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import { StoreType } from "./redux/reduxStore";
 
-type AppPropsType = {
-  store: StoreType;
-};
-const App: FC<AppPropsType> = ({ store }) => {
+import SuperDialogsContainer from "./components/Dialogs/DialogsContainer";
+
+const App = () => {
   return (
     <BrowserRouter>
       <div className='app-wrapper'>
@@ -20,13 +16,9 @@ const App: FC<AppPropsType> = ({ store }) => {
           <Route
             exact
             path='/dialogs'
-            render={() => <DialogsContainer store={store} />}
+            render={() => <SuperDialogsContainer />}
           />
-          <Route
-            exact
-            path='/profile'
-            render={() => <Profile store={store} />}
-          />
+          <Route exact path='/profile' render={() => <Profile />} />
         </div>
       </div>
     </BrowserRouter>

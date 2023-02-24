@@ -3,7 +3,7 @@ import { ActionTypes, PostType } from "./store";
 export const ADD_POST = "ADD-POST";
 export const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 
-let initialState: initialStateType = {
+let initialState: initialStateProfileType = {
   posts: [
     { id: "1", message: "innax from here", likesCount: 12 },
     { id: "2", message: "Lorem ipsum dolor sit", likesCount: 10 },
@@ -11,28 +11,34 @@ let initialState: initialStateType = {
   newPostText: "",
 };
 
-type initialStateType = {
+export type initialStateProfileType = {
   posts: Array<PostType>;
   newPostText: string;
 };
 export const profileReducer = (
   state = initialState,
   action: ActionTypes
-): initialStateType => {
+): initialStateProfileType => {
   switch (action.type) {
-    case ADD_POST:
+    case ADD_POST: {
       const newPost = {
         id: Date.now().toString(),
         message: action.postText,
         likesCount: 0,
       };
+      const stateCopy = { ...state };
+      stateCopy.posts = [...state.posts];
+      stateCopy.posts.push(newPost);
+      stateCopy.newPostText = "";
+      return stateCopy;
+    }
+    case UPDATE_NEW_POST_TEXT: {
+      const stateCopy = { ...state };
+      stateCopy.newPostText = action.newPostText;
 
-      state.posts.push(newPost);
-      state.newPostText = "";
-      return state;
-    case UPDATE_NEW_POST_TEXT:
-      state.newPostText = action.newPostText;
-      return state;
+      // state.newPostText = action.newPostText;
+      return stateCopy;
+    }
 
     default:
       return state;

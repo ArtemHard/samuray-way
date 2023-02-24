@@ -1,3 +1,4 @@
+import { stat } from "fs";
 import { ActionTypes, Dialog, Message } from "./store";
 
 export const SEND_MESSAGE = "SEND-MESSAGE";
@@ -35,11 +36,14 @@ export const messagesReducer = (
   action: ActionTypes
 ): initialStateMessageType => {
   switch (action.type) {
-    case SEND_MESSAGE:
+    case SEND_MESSAGE: {
+      const newState = { ...state };
+      newState.messages = [...state.messages];
       let body = state.newMessageBody;
-      state.messages.push({ id: "45654", message: body });
-      state.newMessageBody = " ";
-      return state;
+      newState.messages.push({ id: "45654", message: body });
+      newState.newMessageBody = " ";
+      return newState;
+    }
     case UPDATE_NEW_MESSAGE_BODY:
       return { ...state, newMessageBody: action.newMessageBody };
 
